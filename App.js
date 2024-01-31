@@ -32,8 +32,8 @@ const HomeScreen = ({ navigation }) => {
         style={styles.logo}
         resizeMode="contain"
       />
-      <ButtonAuth onPress={() => navigation.navigate('Login')} titre="LOG IN" color={'#31C48D'} colorText={'#fff'} />
-      <ButtonAuth onPress={() => navigation.navigate('Signup')} titre="SIGN UP" color={'#fff'} colorText={'#31C48D'} />
+      <ButtonAuth onPress={() => navigation.navigate('Login')} titre="SE CONNECTER" color={'#31C48D'} colorText={'#fff'} />
+      <ButtonAuth onPress={() => navigation.navigate('Signup')} titre="S'INSCRIRE" color={'#fff'} colorText={'#31C48D'} />
     </View>
   );
 };
