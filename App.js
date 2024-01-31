@@ -27,7 +27,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      
       <Image 
         source={require('./assets/global/logo_wildlens.png')}
         style={styles.logo}
