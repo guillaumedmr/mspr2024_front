@@ -28,6 +28,11 @@ const LoginScreen = () => {
                 });
 
                 if (response.ok) {
+                    const responseData = await response.json();
+                    const access_token = responseData.access_token; 
+
+                    console.log('Token:', access_token);
+                    navigation.navigate('Home');
                     console.log('Connexion réussie!');
                 } else {
                     Alert.alert('Erreur', 'Email ou mot de passe incorrect.');
