@@ -5,24 +5,45 @@ import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
-    
+
     const [email, setEmail] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
 
-    const handleValidation = () => {
+    const handleValidation = async () => {
         if (!email || !motDePasse) {
             Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
         } else {
-            console.log('Données soumises :', { email, motDePasse });
+            try {
+                const userData = {
+                    email,
+                    mot_de_passe: motDePasse,
+                };
+
+                const response = await fetch('https://4010-37-174-251-7.ngrok-free.app/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+
+                if (response.ok) {
+                    console.log('Connexion réussie!');
+                } else {
+                    Alert.alert('Erreur', 'Email ou mot de passe incorrect.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la requête:', error);
+            }
         }
     };
 
     return (
         <View style={styles.container}>
             <Image 
-            source={require('../../assets/global/logo_wildlens.png')}
-            style={styles.logo}
-            resizeMode="contain"
+                source={require('../../assets/global/logo_wildlens.png')}
+                style={styles.logo}
+                resizeMode="contain"
             />
 
             <TextInput
@@ -52,7 +73,6 @@ const LoginScreen = () => {
             />
 
             <ButtonAuth onPress={() => navigation.navigate('Signup')} titre="S'inscrire" color={'#fff'} colorText={'#31C48D'} />
-
         </View>
     );
 };
