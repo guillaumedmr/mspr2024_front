@@ -11,9 +11,9 @@ const LoginScreen = () => {
 
     const handleValidation = () => {
         if (!email || !motDePasse) {
-        Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
+            Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
         } else {
-        console.log('Données soumises :', { email, motDePasse });
+            console.log('Données soumises :', { email, motDePasse });
         }
     };
 

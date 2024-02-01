@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { View, Image, TextInput, Text, Button, StyleSheet, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 
 const SignupScreen = () => {
+
+  const navigation = useNavigation();
 
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
@@ -12,12 +16,39 @@ const SignupScreen = () => {
   const [motDePasseValide, setMotDePasseValide] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleValidation = () => {
+  const handleValidation = async () => {
     if (!nom || !prenom || !email || !motDePasse || !motDePasseValide || !dateNaissance) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
     } else {
       if (motDePasse === motDePasseValide) {
-          console.log('Données soumises :', { nom, email, motDePasse, dateNaissance });
+        try {
+          const formattedDate = moment(dateNaissance).format('YYYY-MM-DD');
+
+          const userData = {
+            prenom,
+            nom,
+            dateNaissance : formattedDate,
+            email,
+            mot_de_passe: motDePasse,
+          };
+
+          const response = await fetch('https://4010-37-174-251-7.ngrok-free.app/auth/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+
+          if (response.ok) {
+            navigation.navigate('Login');
+            console.log('Inscription réussie!');
+          } else {
+            console.log('Erreur lors de l\'inscription', userData);
+          }
+        } catch (error) {
+          console.error('Erreur lors de la requête:', error);
+        }
       } else {
         Alert.alert('Erreur', "Le mot de passe n'est pas le même.");
       }
