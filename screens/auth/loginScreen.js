@@ -1,23 +1,95 @@
-// LoginScreen.js
-
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, Image, StyleSheet, Alert } from 'react-native';
+import ButtonAuth from '../../components/global/ButtonAuth';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Login Screen</Text>
-    </View>
-  );
+    const navigation = useNavigation();
+    
+    const [email, setEmail] = useState('');
+    const [motDePasse, setMotDePasse] = useState('');
+
+    const handleValidation = () => {
+        if (!email || !motDePasse) {
+            Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
+        } else {
+            console.log('Données soumises :', { email, motDePasse });
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <Image 
+            source={require('../../assets/global/logo_wildlens.png')}
+            style={styles.logo}
+            resizeMode="contain"
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Adresse Email"
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                keyboardType="email-address"
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Mot de passe"
+                onChangeText={(text) => setMotDePasse(text)}
+                value={motDePasse}
+                secureTextEntry={true}
+            />
+
+            <View style={styles.buttonContainer}>
+                <Button title="Se connecter" onPress={handleValidation} color="#fff" />
+            </View>
+
+            <Image 
+                source={require('../../assets/global/horizontalLine.png')}
+                style={styles.horizontalLine}
+                resizeMode="contain"
+            />
+
+            <ButtonAuth onPress={() => navigation.navigate('Signup')} titre="S'inscrire" color={'#fff'} colorText={'#31C48D'} />
+
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        paddingTop: 10,
+    },
+    logo: {
+        width: 320,
+        height: 320,  
+        marginBottom: 0,
+    },
+    input: {
+        height: 50,
+        width: '80%',
+        borderColor: '#31C48D',
+        borderWidth: 1,
+        marginBottom: 20,
+        padding: 15,
+        borderRadius: 50,
+    },
+    buttonContainer: {
+        width: '80%',
+        marginTop: 20,
+        padding: 5,
+        backgroundColor: '#31C48D',
+        borderRadius: 40,
+        marginBottom: 0
+    },
+    horizontalLine: {
+        margin: 25,
+        marginTop: 40
+    }
 });
 
 export default LoginScreen;
