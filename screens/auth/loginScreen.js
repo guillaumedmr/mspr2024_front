@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Image, StyleSheet, Alert } from 'react-native';
 import ButtonAuth from '../../components/global/ButtonAuth';
 import { useNavigation } from '@react-navigation/native';
+import { urlAPI } from '../../global';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
@@ -19,7 +20,7 @@ const LoginScreen = () => {
                     mot_de_passe: motDePasse,
                 };
 
-                const response = await fetch('https://4010-37-174-251-7.ngrok-free.app/auth/login', {
+                const response = await fetch(urlAPI+'/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

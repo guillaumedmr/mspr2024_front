@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Image, TextInput, Text, Button, StyleSheet, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
+import { urlAPI } from '../../global';
 import moment from 'moment';
 
 const SignupScreen = () => {
@@ -32,7 +33,7 @@ const SignupScreen = () => {
             mot_de_passe: motDePasse,
           };
 
-          const response = await fetch('https://4010-37-174-251-7.ngrok-free.app/auth/signup', {
+          const response = await fetch(urlAPI+'/auth/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
