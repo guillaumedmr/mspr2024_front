@@ -7,6 +7,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import ButtonAuth from './components/global/ButtonAuth';
 import LoginScreen from './screens/auth/loginScreen';
 import SignupScreen from './screens/auth/signupScreen';
+import HomeScreen from './screens/global/homeScreen';
 
 const Stack = createStackNavigator();
 
@@ -14,16 +15,17 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Navigator initialRouteName="Start" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const HomeScreen = ({ navigation }) => {
+const StartScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>

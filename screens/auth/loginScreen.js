@@ -2,27 +2,54 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Image, StyleSheet, Alert } from 'react-native';
 import ButtonAuth from '../../components/global/ButtonAuth';
 import { useNavigation } from '@react-navigation/native';
+import { urlAPI } from '../../global';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
-    
+
     const [email, setEmail] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
 
-    const handleValidation = () => {
+    const handleValidation = async () => {
         if (!email || !motDePasse) {
             Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
         } else {
-            console.log('Données soumises :', { email, motDePasse });
+            try {
+                const userData = {
+                    email,
+                    mot_de_passe: motDePasse,
+                };
+
+                const response = await fetch(urlAPI+'/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    const access_token = responseData.access_token; 
+
+                    console.log('Token:', access_token);
+                    navigation.navigate('Home');
+                    console.log('Connexion réussie!');
+                } else {
+                    Alert.alert('Erreur', 'Email ou mot de passe incorrect.');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la requête:', error);
+            }
         }
     };
 
     return (
         <View style={styles.container}>
             <Image 
-            source={require('../../assets/global/logo_wildlens.png')}
-            style={styles.logo}
-            resizeMode="contain"
+                source={require('../../assets/global/logo_wildlens.png')}
+                style={styles.logo}
+                resizeMode="contain"
             />
 
             <TextInput
@@ -52,7 +79,6 @@ const LoginScreen = () => {
             />
 
             <ButtonAuth onPress={() => navigation.navigate('Signup')} titre="S'inscrire" color={'#fff'} colorText={'#31C48D'} />
-
         </View>
     );
 };
