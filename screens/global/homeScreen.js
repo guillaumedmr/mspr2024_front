@@ -110,7 +110,6 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <Header/>
       <Text style={styles.greeting}>HOME SCREEN</Text>
-      <Button title="Take a photo" onPress={pickImage} />
 
       <Modal
         animationType="slide"
@@ -146,7 +145,7 @@ const HomeScreen = () => {
             
             {loading === 2 && (
                 <>
-                <Text>Vous êtes un CAFARD</Text>
+                <Text>Vous êtes un RAT</Text>
                 {selectedImage && <Image source={require('../../assets/global/cafard.png')} style={styles.selectedImage} />}
                 <TouchableOpacity
                   style={styles.closeButton}
@@ -159,7 +158,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </Modal>
-      <Footer/>
+      <Footer onMiddleImagePress={pickImage} />
     </View>
   );
 };
