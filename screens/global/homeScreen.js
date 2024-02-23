@@ -3,12 +3,21 @@ import { View, Text, StyleSheet, Button, Image, Alert, Modal, TouchableOpacity }
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { urlAPI } from '../../global';
+import Footer from '../../components/global/footer';
+import Header from '../../components/global/header';
 
 const HomeScreen = () => {
   const [image, setImage] = useState(null);
   const [location, setLocation] = useState(null);
   const [modalVisible, setModalVisible] = useState(false); 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [newImage, setNewImage] = useState(null); 
+  const [loading, setLoading] = useState(null); // 0 : en attente | 1 : chargement | 2 : resultat
+
+  useEffect(() => {
+    console.log('Loading:', loading);
+  }, [loading]);
+  
 
   useEffect(() => {
     (async () => {
@@ -47,40 +56,59 @@ const HomeScreen = () => {
 
     setModalVisible(true);
   
-    if (!result.canceled) {
+    if (!result.cancelled) {
       setImage(result.uri);
   
       if (location) {
-        const newImage = {
+        const newImageData = {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           timestamp: location.timestamp,
           base64: result.assets[0].base64,
         };
 
-        setSelectedImage(newImage.base64);
-  
-        const response = await fetch(urlAPI + '/images/upload_image', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newImage),
-        });
-  
-        if (response.ok) {
-          console.log('Image envoyé !', newImage)
-        } else {
-          Alert.alert('Erreur', "Erreur lors de l'envoi !");
-        }
+        setNewImage(newImageData); 
+
+        setSelectedImage(newImageData.base64);
+
+        setLoading(0);
+
+        return newImageData;
       } else {
         Alert.alert('Erreur', "Impossible d'obtenir la localisation.");
       }
     }
   };
 
+  const sendImage = async () => {
+    if (newImage) {
+      setLoading(1);
+  
+      try {
+        const response = await fetch(urlAPI + '/images/upload_image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newImage),
+        });  
+        if (response.ok) {
+          setLoading(2);
+        } else {
+          throw new Error("Erreur lors de l'envoi !");
+        }
+      } catch (error) {
+        Alert.alert('Erreur', error.message);
+      }
+    } else {
+      Alert.alert('Erreur', "Aucune image à envoyer !");
+    }
+  };
+  
+
   return (
     <View style={styles.container}>
+      <Header/>
       <Text style={styles.greeting}>HOME SCREEN</Text>
       <Button title="Take a photo" onPress={pickImage} />
 
@@ -94,24 +122,44 @@ const HomeScreen = () => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {selectedImage && <Image source={{ uri: `data:image/jpeg;base64,${selectedImage}` }} style={styles.selectedImage} />}
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.closeTextButton}>Fermer</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.valideButton}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.valideTextButton}>Lancer la recherche</Text>
-            </TouchableOpacity>
+            {loading === 0 && (
+                <>
+                {selectedImage && <Image source={{ uri: `data:image/jpeg;base64,${selectedImage}` }} style={styles.selectedImage} />}
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.closeTextButton}>Fermer</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.valideButton}
+                  onPress={sendImage}
+                >
+                  <Text style={styles.valideTextButton}>Lancer la recherche</Text>
+                </TouchableOpacity>
+              </>
+            )}
+
+            {loading === 1 && (
+              <Image source={require('../../assets/global/loading.gif')} style={styles.loadingGif} />
+            )} 
             
+            {loading === 2 && (
+                <>
+                <Text>Vous êtes un CAFARD</Text>
+                {selectedImage && <Image source={require('../../assets/global/cafard.png')} style={styles.selectedImage} />}
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.closeTextButton}>Fermer</Text>
+                </TouchableOpacity>
+              </>
+            )}
           </View>
         </View>
       </Modal>
-
+      <Footer/>
     </View>
   );
 };
