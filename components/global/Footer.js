@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Alert, Modal, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { urlAPI } from '../../global';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
@@ -118,10 +119,12 @@ return (
                     style={styles.logo}
                 />
             </TouchableOpacity>
+            <TouchableOpacity>
             <Image
                 source={require('../../assets/global/footer/doc.png')}
                 style={styles.logo}
             />
+            </TouchableOpacity>
         </View>
     </View>
     <Modal
