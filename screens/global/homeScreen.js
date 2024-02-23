@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Footer from '../../components/global/footer';
 import Header from '../../components/global/header';
+import Feed from '../../components/feed/feed';
 
 const HomeScreen = () => { 
 
   return (
     <View style={styles.container}>
       <Header/>
-        <Text style={styles.greeting}>HOME SCREEN</Text>
+        <Feed style={styles.feed} />
       <Footer />
     </View>
   );
@@ -18,12 +19,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 115,
   },
-  greeting: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  feed: {
+    
   }
 });
 

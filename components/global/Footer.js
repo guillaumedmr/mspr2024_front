@@ -58,24 +58,24 @@ const pickImage = async () => {
     if (!result.cancelled) {
         setImage(result.uri);
 
-    if (location) {
-        const newImageData = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        timestamp: location.timestamp,
-        base64: result.assets[0].base64,
-        };
+        if (location) {
+            const newImageData = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            timestamp: location.timestamp,
+            base64: result.assets[0].base64,
+            };
 
-        setNewImage(newImageData); 
+            setNewImage(newImageData); 
 
-        setSelectedImage(newImageData.base64);
+            setSelectedImage(newImageData.base64);
 
-        setLoading(0);
+            setLoading(0);
 
-        return newImageData;
-    } else {
-        Alert.alert('Erreur', "Impossible d'obtenir la localisation.");
-    }
+            return newImageData;
+        } else {
+            Alert.alert('Erreur', "Impossible d'obtenir la localisation.");
+        }
     }
 };
 
@@ -176,64 +176,65 @@ return (
 };
 
 const styles = StyleSheet.create({
-footer: {
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: 100,
-    bottom: 40,
-    position: 'absolute',
-    width: 428,
-},
-iconsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-},
-logo: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    marginHorizontal: 40,
-},
-modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-},
-modalContent: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-},
-closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 20,
-},
-closeTextButton: {
-    color: '#31C48D',
-    fontWeight: 'bold',
-},
-valideButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#31C48D',
-    color: '#fff',
-    borderRadius: 20,
-},
-valideTextButton: {
-    color: '#fff',
-    fontWeight: 'bold',
-},
-selectedImage: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-},
+    footer: {
+        backgroundColor: '#FFFFFF',
+        height: 90,
+        paddingBottom: 10,
+        bottom: 0,
+        position: 'absolute',
+        width: '100%',
+        zIndex: 999,
+    },
+    iconsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        width: '100%',
+    },
+    logo: {
+        width: 40,
+        height: 40,
+        resizeMode: 'contain',
+        marginHorizontal: 10,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    closeButton: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+    },
+    closeTextButton: {
+        color: '#31C48D',
+        fontWeight: 'bold',
+    },
+    sendButton: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: '#31C48D',
+        borderRadius: 20,
+    },
+    sendTextButton: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    selectedImage: {
+        width: 200,
+        height: 200,
+        marginBottom: 20,
+    },
 });
 
 export default Footer;
