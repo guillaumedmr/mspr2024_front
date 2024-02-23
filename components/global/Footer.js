@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 
-const Footer = () => {
+const Footer = ({ onMiddleImagePress }) => {
     return (
         <View style={styles.footer}>
             <View style={styles.iconsContainer}>
@@ -10,10 +10,12 @@ const Footer = () => {
                     source={require('../../assets/global/footer/home.png')}
                     style={styles.logo}
                 />
-                <Image
-                    source={require('../../assets/global/footer/Group_216.png')}
-                    style={styles.logo}
-                />
+                <TouchableOpacity onPress={onMiddleImagePress}>
+                    <Image
+                        source={require('../../assets/global/footer/Group_216.png')}
+                        style={styles.logo}
+                    />
+                </TouchableOpacity>
                 <Image
                     source={require('../../assets/global/footer/doc.png')}
                     style={styles.logo}
