@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-const CardHistorique = ({ date, title, description, imageUri }) => {
+const CardHistorique = ({ date, title, locationText, description, imageUri }) => {
   return (
     <View style={styles.cardContainer}>
       <Image 
@@ -11,6 +11,7 @@ const CardHistorique = ({ date, title, description, imageUri }) => {
         <View style={styles.textContainer}>
           <Text style={styles.dateText}>{date}</Text>
           <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.locationText}>{locationText}</Text>
           <Text style={styles.descriptionText}>{description}</Text>
         </View>
     </View>
@@ -40,6 +41,11 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#000',
+  },
+  locationText: {
+    fontSize: 16,
+    fontStyle: 'italic',
     color: '#000',
   },
   descriptionText: {

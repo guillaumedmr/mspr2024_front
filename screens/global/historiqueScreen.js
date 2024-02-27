@@ -11,9 +11,9 @@ const HistoriqueScreen = () => {
       <Header/>
 
       <ScrollView contentContainerStyle={styles.containerScroll}>
-        <CardHistorique date={'11-02-2023'} title={'Test'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
-        <CardHistorique date={'11-02-2023'} title={'Test'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
-        <CardHistorique date={'11-02-2023'} title={'Test'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
+        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
+        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
+        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
       </ScrollView>
         
       <Footer />
