@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Image, Alert, Modal, TouchableOpacity } from 'r
 import { urlAPI } from '../../global';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
 
 const Footer = () => {
-
+const navigation = useNavigation();
 const [image, setImage] = useState(null);
 const [location, setLocation] = useState(null);
 const [modalVisible, setModalVisible] = useState(false); 
@@ -104,21 +105,27 @@ const sendImage = async () => {
     }
 };
 
+const toPage = async (page) => {
+    navigation.navigate(page);
+};
+
 return (
     <>
     <View style={styles.footer}>
         <View style={styles.iconsContainer}>
+            <TouchableOpacity onPress={() => toPage('Home')}>
             <Image
                 source={require('../../assets/global/footer/home.png')}
                 style={styles.logo}
             />
+            </TouchableOpacity>
             <TouchableOpacity onPress={pickImage}>
                 <Image
                     source={require('../../assets/global/footer/Group_216.png')}
                     style={styles.logo}
                 />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => toPage('Historique')}>
             <Image
                 source={require('../../assets/global/footer/doc.png')}
                 style={styles.logo}

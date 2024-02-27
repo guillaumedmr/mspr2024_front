@@ -9,6 +9,7 @@ import LoginScreen from './screens/auth/loginScreen';
 import SignupScreen from './screens/auth/signupScreen';
 import HomeScreen from './screens/global/homeScreen';
 import Profil from './screens/global/profil';
+import HistoriqueScreen from './screens/global/historiqueScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profil" component={Profil} />
+        <Stack.Screen name="Historique" component={HistoriqueScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
