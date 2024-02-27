@@ -1,7 +1,14 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = () => {
+    const navigation = useNavigation();
+
+    const toProfil = async () => {
+        navigation.navigate('Profil');
+    };
+
     return (
         <View style={styles.header}>
             <View style={styles.iconsContainer}>
@@ -9,10 +16,12 @@ const Header = () => {
                     source={require('../../assets/global/logo_wildlens.png')}
                     style={styles.logo}
                 />
-                <Image
-                    source={require('../../assets/global/header/person-circle.png')}
-                    style={styles.profil}
-                />
+                <TouchableOpacity onPress={toProfil}>
+                    <Image
+                        source={require('../../assets/global/header/person-circle.png')}
+                        style={styles.profil}
+                    />
+                </TouchableOpacity>
             </View>
         </View>
     );

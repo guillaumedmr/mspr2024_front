@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Alert, Modal, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { urlAPI } from '../../global';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
