@@ -118,10 +118,12 @@ return (
                     style={styles.logo}
                 />
             </TouchableOpacity>
+            <TouchableOpacity>
             <Image
                 source={require('../../assets/global/footer/doc.png')}
                 style={styles.logo}
             />
+            </TouchableOpacity>
         </View>
     </View>
     <Modal

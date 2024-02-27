@@ -8,6 +8,7 @@ import ButtonAuth from './components/global/ButtonAuth';
 import LoginScreen from './screens/auth/loginScreen';
 import SignupScreen from './screens/auth/signupScreen';
 import HomeScreen from './screens/global/homeScreen';
+import Profil from './screens/global/profil';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Profil" component={Profil} />
       </Stack.Navigator>
     </NavigationContainer>
   );
