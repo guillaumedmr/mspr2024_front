@@ -11,7 +11,7 @@ const Profil = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(urlAPI + '/auth/get_info', {
+                const response = await fetch(urlAPI + '/user/get_info', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
