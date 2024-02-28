@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Alert, Modal, TouchableOpacity } from 'react-native';
-import { urlAPI } from '../../global';
+import { urlAPI, accessToken } from '../../global';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
@@ -63,7 +63,6 @@ const pickImage = async () => {
             const newImageData = {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            timestamp: location.timestamp,
             base64: result.assets[0].base64,
             };
 
@@ -89,12 +88,14 @@ const sendImage = async () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify(newImage),
             });  
         if (response.ok) {
             setLoading(2);
         } else {
+            setLoading(0);
             throw new Error("Erreur lors de l'envoi !");
         }
     } catch (error) {

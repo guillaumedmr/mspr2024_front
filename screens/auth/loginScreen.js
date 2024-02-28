@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Image, StyleSheet, Alert } from 'react-native';
 import ButtonAuth from '../../components/global/ButtonAuth';
 import { useNavigation } from '@react-navigation/native';
-import { urlAPI } from '../../global';
+import { urlAPI, setAccessToken } from '../../global';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
@@ -32,6 +32,7 @@ const LoginScreen = () => {
                     const responseData = await response.json();
                     const access_token = responseData.access_token; 
 
+                    setAccessToken(access_token);
                     console.log('Token:', access_token);
                     navigation.navigate('Home');
                     console.log('Connexion réussie!');
