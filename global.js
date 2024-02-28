@@ -1,1 +1,9 @@
-export const urlAPI = 'https://2ea9-2a01-e0a-15b-b760-f194-119d-638f-bda0.ngrok-free.app';
+export const urlAPI = 'https://341e-37-166-13-232.ngrok-free.app';
+
+// Initialisation de la variable pour stocker le token
+export let accessToken = '';
+
+// Fonction pour mettre à jour le token
+export const setAccessToken = (token) => {
+    accessToken = token;
+};
