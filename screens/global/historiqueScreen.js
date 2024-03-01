@@ -1,24 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Footer from '../../components/global/footer';
 import Header from '../../components/global/header';
 import CardHistorique from '../../components/historique/historiqueCard';
+import { urlAPI, accessToken } from '../../global';
 
 const HistoriqueScreen = () => { 
 
-  return (
-    <View style={styles.container}>
-      <Header/>
+  const [userDataHisto, setUserDataHisto] = useState(null);
 
-      <ScrollView contentContainerStyle={styles.containerScroll}>
-        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
-        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
-        <CardHistorique date={'11-02-2023'} title={'Test'} locationText={'Montpellier'} description={"Voici un fun fact sur la vie de l'animal que l'on a pris en photo"} imageUri={require('../../assets/global/cafard.png')}/>
-      </ScrollView>
-        
-      <Footer />
-    </View>
-  );
+    useEffect(() => {
+        const fetchUserDataHisto = async () => {
+            try {
+                const response = await fetch(urlAPI + '/user/get_historique', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erreur lors de la récupération des données de l'utilisateur");
+                }
+
+                const data = await response.json();
+                setUserDataHisto(data.user_historique); 
+                console.log(userDataHisto);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchUserDataHisto();
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <Header/>
+    
+        <ScrollView contentContainerStyle={styles.containerScroll}>
+          {userDataHisto ? (
+            <>
+              {userDataHisto.map((historique, index) => (
+                <CardHistorique
+                  key={index}
+                  date={historique.date_empreinte}
+                  title={historique.nom_animal}
+                  locationText={historique.coordonnee_empreinte}
+                  description={historique.fun_fact}
+                  imageUri={require('../../assets/global/cafard.png')}
+                />
+              ))}
+            </>
+          ) : (
+            <View style={styles.chargement}>
+              <Text>Chargement en cours...</Text>
+            </View>
+          )}
+        </ScrollView>
+    
+        <Footer />
+      </View>
+    );
+    
 };
 
 const styles = StyleSheet.create({
@@ -30,8 +75,10 @@ const styles = StyleSheet.create({
   containerScroll: {
     paddingBottom: 115,
   },
-  feed: {
-    
+  chargement: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
 

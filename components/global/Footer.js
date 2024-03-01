@@ -59,21 +59,22 @@ const pickImage = async () => {
     if (!result.cancelled) {
         setImage(result.uri);
 
-        if (location) {
+        if (location && location.coords) {
             const newImageData = {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            base64: result.assets[0].base64,
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                base64: result.assets[0].base64,
             };
-
+        
             setNewImage(newImageData); 
-
+        
             setSelectedImage(newImageData.base64);
-
+        
             setLoading(0);
-
+        
             return newImageData;
         } else {
+            setModalVisible(false);
             Alert.alert('Erreur', "Impossible d'obtenir la localisation.");
         }
     }
