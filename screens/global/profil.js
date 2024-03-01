@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Header from '../../components/global/header';
 import Footer from '../../components/global/footer';
-import { urlAPI, accessToken } from '../../global';
+import { urlAPI, accessToken, setAccessToken } from '../../global';
+import ButtonAuth from '../../components/global/ButtonAuth';
+import { useNavigation } from '@react-navigation/native';
 
 const Profil = () => { 
 
   const [userData, setUserData] = useState(null);
+  const navigation = useNavigation();
+
+  const deconnect = async () => {
+    setAccessToken('');
+    navigation.navigate('Login');
+  };
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -56,6 +64,7 @@ const Profil = () => {
                                 <Text style={styles.key_line_info}>Date de naissance</Text>
                                 <Text>{userData.dateNaissance}</Text>
                             </View>
+                            <ButtonAuth onPress={deconnect} titre="SE DÉCONNECTER" color={'#31C48D'} colorText={'#fff'} />
                         </View>
                     </>
                 ) : (
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
         height: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
-      }
+      },
 });
 
 export default Profil;

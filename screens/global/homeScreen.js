@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Footer from '../../components/global/footer';
 import Header from '../../components/global/header';
@@ -9,7 +9,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header/>
-        <Feed style={styles.feed} />
+      <Feed/>
       <Footer />
     </View>
   );
@@ -21,9 +21,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 115,
   },
-  feed: {
-    
-  }
 });
 
 export default HomeScreen;
