@@ -169,7 +169,7 @@ return (
         
         {loading === 2 && (
             <>
-            <Text>Vous êtes un RAT</Text>
+            <Text>C'est un RAT</Text>
             {selectedImage && <Image source={require('../../assets/global/cafard.png')} style={styles.selectedImage} />}
             <TouchableOpacity
                 style={styles.closeButton}

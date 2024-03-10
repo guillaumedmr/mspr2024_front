@@ -49,7 +49,7 @@ const HistoriqueScreen = () => {
                   title={historique.nom_animal}
                   locationText={historique.coordonnee_empreinte}
                   description={historique.fun_fact}
-                  imageUri={require('../../assets/global/cafard.png')}
+                  imageUri={{ uri: `data:image/jpeg;base64,${historique.base64}` }}
                 />
               ))}
             </>
